@@ -33,14 +33,14 @@ namespace KKTWebServerApi
         }
 
 
-        public static JObject queryFnStatus(string Path)
+        public static async Task<JObject> queryFnStatus(string Path)
         {
             try
             {
                 WebRequest request = WebRequest.Create($"http://{Path}:16732/api/v2/operations/queryFnStatus?deviceID=default");
                 request.Method = "POST";
                 request.ContentType = "application/json";
-                WebResponse response = request.GetResponse();
+                WebResponse response = await request.GetResponseAsync();
                 using (Stream stream = response.GetResponseStream())
                 {
                     using (StreamReader reader = new StreamReader(stream))
